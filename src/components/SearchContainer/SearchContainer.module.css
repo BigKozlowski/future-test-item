@@ -1,0 +1,22 @@
+.searchContainer {
+  height: 128px;
+  width: 100%;
+  background-color: lightgray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.searchInput {
+  width: 50%;
+}
+
+.controlsContainer {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+.controlsContainer span {
+  margin-right: 16px;
+}

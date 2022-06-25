@@ -1,0 +1,21 @@
+.bookContainer {
+  width: 240px;
+  height: 320px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: bisque;
+}
+
+.imageContainer {
+  width: 128px;
+  height: 181px;
+}
+
+.titleContainer {
+  text-align: center;
+  margin: 0 auto;
+  width: 240px;
+}

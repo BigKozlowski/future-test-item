@@ -1,0 +1,8 @@
+.searchBarContainer {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.searchBarContainer input {
+  margin-right: 5px;
+}
