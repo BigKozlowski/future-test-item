@@ -1,11 +1,21 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import BooksContainer from "../../components/BooksContainer/BooksContainer";
+import withSpinner from "../../components/withSpinner/withSpinner";
 import { addBooks, setIsFinal, setPreloadedBooks } from "../../redux/BooksList/BooksList";
 import { setTotalResults } from "../../redux/SearchParameters/SearchParameters";
 import { requestBooks } from "../../utils/APIUtils";
 
+const BooksContainerWithSpinner = withSpinner(BooksContainer);
+
+const Button = ({ onClick }) => {
+  return <button onClick={onClick}>Load More</button>;
+};
+
+const ButtonWithSpinner = withSpinner(Button);
+
 const SearchResultsPage = () => {
+  const [isAdding, setIsAdding] = useState(false);
   const booksList = useSelector((state: State) => state.booksSlice.books);
 
   const dispatch = useDispatch();
@@ -20,18 +30,23 @@ const SearchResultsPage = () => {
 
   const isFinal = useSelector((state: State) => state.booksSlice.isFinal);
 
+  const isLoading = useSelector((state: State) => state.navigationSlice.isLoading);
+
   const addNewBooks = async (
     searchQuery: string,
     selectedCategory: string,
     sortingOrder: string,
     startIndex
   ) => {
+    setIsAdding(true);
     const { booksList, totalItems } = await requestBooks(
       searchQuery,
       selectedCategory,
       sortingOrder,
       startIndex + 30
     );
+
+    setIsAdding(false);
 
     if (booksList.length === 0) {
       dispatch(setIsFinal(true));
@@ -60,8 +75,10 @@ const SearchResultsPage = () => {
       ) : totalResults > 0 ? (
         <div>Found ~{totalResults} results</div>
       ) : null}
-      <BooksContainer />
-      {booksList.length > 0 && !isFinal ? <button onClick={loadNewBooks}>Load More</button> : null}
+      <BooksContainerWithSpinner isLoading={isLoading} />
+      {booksList.length > 0 && !isFinal ? (
+        <ButtonWithSpinner isLoading={isAdding} onClick={loadNewBooks} />
+      ) : null}
     </Fragment>
   );
 };

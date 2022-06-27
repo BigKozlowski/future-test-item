@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setBooks, setIsFinal, setPreloadedBooks } from "../../redux/BooksList/BooksList";
-import { setCurrentPage } from "../../redux/Navigation/Navigation";
+import { setCurrentPage, setIsLoading } from "../../redux/Navigation/Navigation";
 import {
   setSearchQuery,
   setSelectedCategory,
@@ -42,6 +42,7 @@ const SearchContainer = () => {
     selectedCategory: string,
     sortingOrder: string
   ) => {
+    dispatch(setIsLoading(true));
     dispatch(setIsFinal(false));
     const { booksList, totalItems } = await requestBooks(
       searchQuery,
@@ -49,6 +50,9 @@ const SearchContainer = () => {
       sortingOrder,
       0
     );
+
+    dispatch(setIsLoading(false));
+
     if (booksList.length === 0) {
       dispatch(setIsFinal(true));
       return;

@@ -22,5 +22,6 @@ type State = {
   };
   navigationSlice: {
     currentPage: string;
+    isLoading: boolean;
   }
 };

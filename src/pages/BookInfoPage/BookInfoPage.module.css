@@ -1,9 +1,9 @@
 .bookInfoContainer {
   width: 80%;
-  
+
 }
 
-.contentContainer{
+.contentContainer {
   background-color: bisque;
   min-height: 200px;
   display: flex;
