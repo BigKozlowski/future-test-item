@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const Navigation = createSlice({
-  name: "search",
+  name: "navigation",
   initialState: {
     currentPage: "search",
     isLoading: false,
